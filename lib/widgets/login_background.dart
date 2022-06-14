@@ -1,5 +1,7 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+
+import 'package:animate_do/animate_do.dart';
+
 import 'package:minimal_app/ui/ui.dart';
 
 class LoginBackground extends StatelessWidget {
@@ -25,7 +27,7 @@ class LoginBackground extends StatelessWidget {
                 left: 50.0,
                 top: -40.0,
                 child: FadeInRight(                  
-                  child: LoginCustomPaint.getLoginPainterOne()
+                  child: LoginCustomPaint.getCustomPainterOne()
                 )
               ),
               Positioned(
@@ -33,14 +35,14 @@ class LoginBackground extends StatelessWidget {
                 top: size.height * 0.4,
                 child: FadeInLeft(
                   delay: const Duration(milliseconds: 400),
-                  child: LoginCustomPaint.getLoginPainterTwo()
+                  child: LoginCustomPaint.getCustomPainterTwo()
                 )
               ),
               Positioned(
                 bottom: 0.0,
                 child: FadeInDown(
                   delay: const Duration(milliseconds: 800),
-                  child: LoginCustomPaint.getLoginPainterThree()
+                  child: LoginCustomPaint.getCustomPainterThree()
                 )
               ),
             ],

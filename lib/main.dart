@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         )
       ), 
       title: 'Minimal',
-      home: const LoginScreen()
+      home: const AuthenticationScreen()
     );
   }
 }

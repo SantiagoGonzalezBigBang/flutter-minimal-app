@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:minimal_app/ui/ui.dart';
 
 class AuthenticationTextFormField extends StatelessWidget {

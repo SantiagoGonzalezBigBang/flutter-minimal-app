@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:minimal_app/models/models.dart';
+
 class LoginResponseModel {
   LoginResponseModel({
     required this.success,
@@ -8,13 +10,13 @@ class LoginResponseModel {
   });
 
   final bool success;
-  final Response? response;
-  final ErrorLoginModel? errorModel;
+  final ResponseLogin? response;
+  final ErrorAuthenticationModel? errorModel;
 
   LoginResponseModel copyWith({
     bool? success,
-    Response? response,
-    ErrorLoginModel? errorModel
+    ResponseLogin? response,
+    ErrorAuthenticationModel? errorModel
   }) => LoginResponseModel(
     success: success ?? this.success,
     response: response ?? this.response,
@@ -27,8 +29,8 @@ class LoginResponseModel {
 
   factory LoginResponseModel.fromMap(Map<String, dynamic> json) => LoginResponseModel(
     success   : json["success"],
-    response  : json["response"] == null ? null : Response.fromMap(json["response"]),
-    errorModel: json["error"] == null ? null : ErrorLoginModel.fromMap(json["error"]),
+    response  : json["response"] == null ? null : ResponseLogin.fromMap(json["response"]),
+    errorModel: json["error"] == null ? null : ErrorAuthenticationModel.fromMap(json["error"]),
   );
 
   Map<String, dynamic> toMap() => {
@@ -38,9 +40,9 @@ class LoginResponseModel {
   };
 }
 
-class Response {
+class ResponseLogin {
 
-  Response({
+  ResponseLogin({
     required this.id,
     required this.firstname,
     required this.lastname,
@@ -60,7 +62,7 @@ class Response {
   final int role;
   final String accessToken;
 
-  Response copyWith({
+  ResponseLogin copyWith({
     int? id,
     String? firstname,
     String? lastname,
@@ -69,7 +71,7 @@ class Response {
     String? phone,
     int? role,
     String? accessToken,
-  }) => Response(
+  }) => ResponseLogin(
     id: id ?? this.id,
     firstname: firstname ?? this.firstname,
     lastname: lastname ?? this.lastname,
@@ -80,11 +82,11 @@ class Response {
     accessToken: accessToken ?? this.accessToken,
   );
 
-  factory Response.fromJson(String str) => Response.fromMap(json.decode(str));
+  factory ResponseLogin.fromJson(String str) => ResponseLogin.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Response.fromMap(Map<String, dynamic> json) => Response(
+  factory ResponseLogin.fromMap(Map<String, dynamic> json) => ResponseLogin(
     id: json["id"],
     firstname: json["firstname"],
     lastname: json["lastname"],
@@ -104,37 +106,5 @@ class Response {
     "phone": phone,
     "role": role,
     "access_token": accessToken,
-  };
-}
-
-class ErrorLoginModel {
-  ErrorLoginModel({
-    required this.code,
-    required this.message,
-  });
-
-  final int code;
-  final String message;
-
-  ErrorLoginModel copyWith({
-    int? code,
-    String? message,
-  }) => ErrorLoginModel(
-    code: code ?? this.code,
-    message: message ?? this.message,
-  );
-
-  factory ErrorLoginModel.fromJson(String str) => ErrorLoginModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory ErrorLoginModel.fromMap(Map<String, dynamic> json) => ErrorLoginModel(
-    code: json["code"],
-    message: json["message"],
-  );
-
-  Map<String, dynamic> toMap() => {
-    "code": code,
-    "message": message,
   };
 }

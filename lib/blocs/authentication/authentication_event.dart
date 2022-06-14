@@ -16,3 +16,7 @@ class AuthenticationSendFormEvent extends AuthenticationEvent {
   final BuildContext context;
 }
 
+class AuthenticationAutomaticLoginEvent extends AuthenticationEvent {
+  const AuthenticationAutomaticLoginEvent(this.context);
+  final BuildContext context;
+}

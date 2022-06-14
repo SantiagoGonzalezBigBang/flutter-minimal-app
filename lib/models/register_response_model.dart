@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:minimal_app/models/models.dart';
+
 class RegisterResponseModel {
   RegisterResponseModel({
     required this.success,
@@ -8,13 +10,13 @@ class RegisterResponseModel {
   });
 
   final bool success;
-  final Response? response;
-  final ErrorRegisterModel? errorModel;
+  final ResponseRegister? response;
+  final ErrorAuthenticationModel? errorModel;
 
   RegisterResponseModel copyWith({
     bool? success,
-    Response? response,
-    ErrorRegisterModel? errorModel
+    ResponseRegister? response,
+    ErrorAuthenticationModel? errorModel
   }) => RegisterResponseModel(
     success : success ?? this.success,
     response: response ?? this.response,
@@ -27,8 +29,8 @@ class RegisterResponseModel {
 
   factory RegisterResponseModel.fromMap(Map<String, dynamic> json) => RegisterResponseModel(
     success   : json["success"],
-    response  : json["response"] == null ? null : Response.fromMap(json["response"]),
-    errorModel: json["error"] == null ? null : ErrorRegisterModel.fromMap(json["error"]),
+    response  : json["response"] == null ? null : ResponseRegister.fromMap(json["response"]),
+    errorModel: json["error"] == null ? null : ErrorAuthenticationModel.fromMap(json["error"]),
   );
 
   Map<String, dynamic> toMap() => {
@@ -38,8 +40,8 @@ class RegisterResponseModel {
   };
 }
 
-class Response {
-  Response({
+class ResponseRegister {
+  ResponseRegister({
     required this.firstname,
     required this.lastname,
     required this.email,
@@ -57,7 +59,7 @@ class Response {
   final int role;
   final int id;
 
-  Response copyWith({
+  ResponseRegister copyWith({
     String? firstname,
     String? lastname,
     String? email,
@@ -67,7 +69,7 @@ class Response {
     DateTime? updatedAt,
     DateTime? createdAt,
     int? id,
-  }) => Response(
+  }) => ResponseRegister(
     firstname: firstname ?? this.firstname,
     lastname: lastname ?? this.lastname,
     email: email ?? this.email,
@@ -77,11 +79,11 @@ class Response {
     id: id ?? this.id,
   );
 
-  factory Response.fromJson(String str) => Response.fromMap(json.decode(str));
+  factory ResponseRegister.fromJson(String str) => ResponseRegister.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Response.fromMap(Map<String, dynamic> json) => Response(
+  factory ResponseRegister.fromMap(Map<String, dynamic> json) => ResponseRegister(
     firstname: json["firstname"],
     lastname: json["lastname"],
     email: json["email"],
@@ -99,37 +101,5 @@ class Response {
     "photo": photo,
     "role": role,
     "id": id,
-  };
-}
-
-class ErrorRegisterModel {
-  ErrorRegisterModel({
-    required this.code,
-    required this.message,
-  });
-
-  final int code;
-  final String message;
-
-  ErrorRegisterModel copyWith({
-    int? code,
-    String? message,
-  }) => ErrorRegisterModel(
-    code: code ?? this.code,
-    message: message ?? this.message,
-  );
-
-  factory ErrorRegisterModel.fromJson(String str) => ErrorRegisterModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory ErrorRegisterModel.fromMap(Map<String, dynamic> json) => ErrorRegisterModel(
-    code: json["code"],
-    message: json["message"],
-  );
-
-  Map<String, dynamic> toMap() => {
-    "code": code,
-    "message": message,
   };
 }

@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:minimal_app/global/global.dart';
 import 'package:minimal_app/models/models.dart';
-import 'package:minimal_app/models/register_response_model.dart';
 
 class AuthenticationService {
 
@@ -34,7 +33,7 @@ class AuthenticationService {
     } else {
       return LoginResponseModel(
         success: false,
-        errorModel: ErrorLoginModel(
+        errorModel: ErrorAuthenticationModel(
           code: 0,
           message: 'An error has occurred'
         )
@@ -68,7 +67,7 @@ class AuthenticationService {
     } else {
       return RegisterResponseModel(
         success: false,
-        errorModel: ErrorRegisterModel(
+        errorModel: ErrorAuthenticationModel(
           code: 0,
           message: 'An error has occurred'
         )

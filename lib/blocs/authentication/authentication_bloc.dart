@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import 'package:minimal_app/helpers/helpers.dart';
 import 'package:minimal_app/screens/screens.dart';
 import 'package:minimal_app/services/services.dart';
 import 'package:minimal_app/ui/ui.dart';
@@ -21,12 +22,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   }
 
-  final GlobalKey<FormState> authenticationFormKey = GlobalKey<FormState>();
+  final authenticationFormKey = GlobalKey<FormState>();
 
-  final TextEditingController emailTextEditingController    = TextEditingController();
-  final TextEditingController passwordTextEditingController = TextEditingController();
+  final emailTextEditingController    = TextEditingController();
+  final passwordTextEditingController = TextEditingController();
 
   final authenticationService = AuthenticationService();
+  final secureStorageHelper   = SecureStorageHelper();
 
   //* Events
   void onAuthenticationTogglePasswordObscureEvent(AuthenticationTogglePasswordObscureEvent event, Emitter<AuthenticationState> emit) {
@@ -48,10 +50,14 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         password: passwordTextEditingController.text
       ).then((value) {
         if (value.success) {
-          //TODO: Save token to secure storage
-          Navigator.pushReplacement(event.context, MaterialPageRoute(
-            builder: (context) => const ClientsScreen(),
-          ));
+          if (value.response != null) {
+            secureStorageHelper.writeToken(value.response!.accessToken);
+            secureStorageHelper.writeEmail(value.response!.email);
+            secureStorageHelper.writePassword(passwordTextEditingController.text);
+            Navigator.pushReplacement(event.context, MaterialPageRoute(
+              builder: (context) => const ClientsScreen(),
+            ));
+          }
         } else {
           if (value.errorModel != null) {
             ScaffoldMessenger.of(event.context).showSnackBar(
@@ -86,6 +92,31 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   //* Methods
   bool isValidForm() {
     return authenticationFormKey.currentState?.validate() ?? false;
+  }
+
+  Future<bool> isLoggedIn() async {
+
+    final token = await SecureStorageHelper().readToken();
+    final email = await SecureStorageHelper().readEmail();
+    final password = await SecureStorageHelper().readPassword();
+
+    if (token == null || email == null || password == null) return false;
+
+    final loginResponseModel = await authenticationService.logIn(
+      email: email,
+      password: password
+    );
+
+    if (loginResponseModel.success) {
+      if (loginResponseModel.response != null) {
+        await secureStorageHelper.writeToken(loginResponseModel.response!.accessToken);
+        await secureStorageHelper.writeEmail(email);
+        await secureStorageHelper.writePassword(password);
+        return true;
+      }
+    }
+
+    return false;
   }
 
 }

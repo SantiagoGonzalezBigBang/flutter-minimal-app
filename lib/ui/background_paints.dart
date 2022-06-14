@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class LoginCustomPaint {
 
-  static Widget getLoginPainterOne() {
+  static Widget getCustomPainterOne() {
     return ImageFiltered(
       imageFilter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 60.0),
       child: CustomPaint(        
@@ -12,12 +12,12 @@ class LoginCustomPaint {
           400.0,
           500.0
         ),
-        painter: LoginPainterOne(),
+        painter: CustomPainterOne(),
       ),
     );
   }
 
-  static Widget getLoginPainterTwo() {
+  static Widget getCustomPainterTwo() {
     return ImageFiltered(
       imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
       child: CustomPaint(        
@@ -25,12 +25,12 @@ class LoginCustomPaint {
           100.0,
           300.0
         ),
-        painter: LoginPainterTwo(),
+        painter: CustomPainterTwo(),
       ),
     );
   }
 
-  static Widget getLoginPainterThree() {
+  static Widget getCustomPainterThree() {
     return ImageFiltered(
       imageFilter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 40.0),
       child: CustomPaint(        
@@ -38,14 +38,14 @@ class LoginCustomPaint {
           500.0,
           300.0
         ),
-        painter: LoginPainterThree(),
+        painter: CustomPainterThree(),
       ),
     );
   }
 
 }
 
-class LoginPainterOne extends CustomPainter {
+class CustomPainterOne extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -73,7 +73,7 @@ class LoginPainterOne extends CustomPainter {
 
 }
 
-class LoginPainterTwo extends CustomPainter {
+class CustomPainterTwo extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -101,7 +101,7 @@ class LoginPainterTwo extends CustomPainter {
 
 }
 
-class LoginPainterThree extends CustomPainter {
+class CustomPainterThree extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {

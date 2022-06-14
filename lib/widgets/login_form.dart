@@ -17,7 +17,6 @@ class LoginForm extends StatelessWidget {
 
     return Form(
       key: authenticationBloc.authenticationFormKey,
-      // autovalidateMode: AutovalidateMode.onUserInteraction,
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(        
         builder: (context, state) {
           return Column(
