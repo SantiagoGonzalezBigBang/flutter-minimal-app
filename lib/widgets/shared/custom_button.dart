@@ -9,13 +9,15 @@ class CustomButton extends StatelessWidget {
     Key? key, 
     required this.text,
     this.onPressed,
-    this.isLoading = false
+    this.isLoading = false,
+    this.isSmall = false
   }) : super(key: key);
 
   final String text;
   final VoidCallback? onPressed;
 
   final bool isLoading;
+  final bool isSmall;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,8 @@ class CustomButton extends StatelessWidget {
           double.infinity, 
           5.0
         ),
-        padding: const EdgeInsets.symmetric(
-          vertical: 20.0
+        padding: EdgeInsets.symmetric(
+          vertical: isSmall ? 10.0 : 20.0
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(34.0)

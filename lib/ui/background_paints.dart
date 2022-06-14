@@ -45,6 +45,62 @@ class LoginCustomPaint {
 
 }
 
+class ClientCustomPaint {
+
+  static Widget getCustomPainterOne() {
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 60.0),
+      child: CustomPaint(        
+        size: const Size(
+          350.0,
+          450.0
+        ),
+        painter: CustomPainterOne(),
+      ),
+    );
+  }
+
+  static Widget getCustomPainterTwo() {
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+      child: CustomPaint(        
+        size: const Size(
+          100.0,
+          300.0
+        ),
+        painter: CustomPainterTwo(),
+      ),
+    );
+  }
+
+  static Widget getCustomPainterThree() {
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
+      child: CustomPaint(        
+        size: const Size(
+          400.0,
+          350.0
+        ),
+        painter: CustomPainterThree(),
+      ),
+    );
+  }
+
+  static Widget getCustomPainterFour() {
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 80.0, sigmaY: 80.0),
+      child: CustomPaint(        
+        size: const Size(
+          300.0,
+          400.0
+        ),
+        painter: CustomPainterOne(),
+      ),
+    );
+  }
+
+}
+
 class CustomPainterOne extends CustomPainter {
 
   @override

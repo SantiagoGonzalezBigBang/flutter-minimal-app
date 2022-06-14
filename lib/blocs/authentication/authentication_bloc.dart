@@ -55,7 +55,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
             secureStorageHelper.writeEmail(value.response!.email);
             secureStorageHelper.writePassword(passwordTextEditingController.text);
             Navigator.pushReplacement(event.context, MaterialPageRoute(
-              builder: (context) => const ClientsScreen(),
+              builder: (context) => const ClientsStateScreen(),
             ));
           }
         } else {
@@ -117,6 +117,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
 
     return false;
+  }
+
+  @override
+  Future<void> close() {
+    emailTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+    return super.close();
   }
 
 }

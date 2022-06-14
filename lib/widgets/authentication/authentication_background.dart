@@ -4,8 +4,8 @@ import 'package:animate_do/animate_do.dart';
 
 import 'package:minimal_app/ui/ui.dart';
 
-class LoginBackground extends StatelessWidget {
-  const LoginBackground({
+class AuthenticationBackground extends StatelessWidget {
+  const AuthenticationBackground({
     Key? key, 
     required this.child
   }) : super(key: key);

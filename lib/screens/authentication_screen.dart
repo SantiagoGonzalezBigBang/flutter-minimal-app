@@ -19,7 +19,7 @@ class AuthenticationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(      
-      body: LoginBackground(
+      body: AuthenticationBackground(
         child: Center(
           child: FutureBuilder<bool>(
             future: checkLoginState(context),
@@ -36,7 +36,7 @@ class AuthenticationScreen extends StatelessWidget {
                       SizedBox(height: 46.0,),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 48.0),
-                        child: LoginForm(),
+                        child: AuthenticationForm(),
                       ),
                       SizedBox(height: 20.0,),
                       AuthenticationToggleModeButton(),
@@ -53,14 +53,17 @@ class AuthenticationScreen extends StatelessWidget {
                   FadeIn(
                     duration: const Duration(milliseconds: 1500),
                     delay: const Duration(milliseconds: 400),
-                    child: const SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: LoadingIndicator(
-                        indicatorType: Indicator.lineScaleParty,
-                        colors: [
-                          Colors.black
-                        ],          
+                    child: const Hero(
+                      tag: 'loading',
+                      child: SizedBox(
+                        height: 50.0,
+                        width: 50.0,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.lineScaleParty,
+                          colors: [
+                            Colors.black
+                          ],          
+                        ),
                       ),
                     )
                   ),
@@ -80,7 +83,7 @@ class AuthenticationScreen extends StatelessWidget {
     if (isLoggedIn) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => const ClientsScreen(),
+        builder: (context) => const ClientsStateScreen(),
       ));
       return false;
     } else {

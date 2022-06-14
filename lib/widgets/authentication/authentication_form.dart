@@ -6,8 +6,8 @@ import 'package:minimal_app/blocs/blocs.dart';
 import 'package:minimal_app/helpers/helpers.dart';
 import 'package:minimal_app/widgets/widgets.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({
+class AuthenticationForm extends StatelessWidget {
+  const AuthenticationForm({
     Key? key,
   }) : super(key: key);
 

@@ -21,4 +21,19 @@ class InputDecorations {
     );
   }
 
+  static InputDecoration searchInputDecoration() {
+    return InputDecoration(
+      hintText: 'Search....',
+      hintStyle: GoogleFonts.dmSans(
+        fontWeight: FontWeight.w500,
+        fontSize: 13.0,
+        color: const Color(0xff000000).withOpacity(0.62)
+      ),
+      border: InputBorder.none,      
+      prefixIcon: const Icon(
+        Icons.search,
+      ),
+    );
+  }
+
 }
