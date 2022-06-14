@@ -15,7 +15,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => LoginBloc())
+        BlocProvider(create: (context) => AuthenticationBloc())
       ],
       child: const MyApp()
     );

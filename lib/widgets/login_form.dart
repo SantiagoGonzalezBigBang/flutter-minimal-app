@@ -13,22 +13,18 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context, listen: false);
+    AuthenticationBloc authenticationBloc = BlocProvider.of<AuthenticationBloc>(context, listen: false);
 
     return Form(
-      key: loginBloc.loginFormKey,
+      key: authenticationBloc.authenticationFormKey,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: BlocBuilder<LoginBloc, LoginState>(
-        buildWhen: (previous, current) {
-          return previous.isPasswordObscure != current.isPasswordObscure || 
-                 previous.isLoading != current.isLoading;
-        },
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(        
         builder: (context, state) {
           return Column(
             children: [
               AuthenticationTextFormField(
                 hintText: 'Mail',
-                textEditingController: loginBloc.loginTextEditingController,
+                textEditingController: authenticationBloc.emailTextEditingController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
                 validator: Validator.validateMail,
@@ -40,20 +36,20 @@ class LoginForm extends StatelessWidget {
               AuthenticationTextFormField(
                 hintText: 'Password',
                 obscureText: state.isPasswordObscure,
-                textEditingController: loginBloc.passwordTextEditingController,
-                onPressedIcon: () => loginBloc.add(LoginTooglePasswordObscureEvent()),
+                textEditingController: authenticationBloc.passwordTextEditingController,
+                onPressedIcon: () => authenticationBloc.add(AuthenticationTogglePasswordObscureEvent()),
                 keyboardType: TextInputType.visiblePassword,  
                 textInputAction: TextInputAction.send,
                 enabled: !state.isLoading,
                 onFieldSubmitted: (value) {
-                  if (!state.isLoading) loginBloc.add(LoginSendFormEvent(context));
+                  if (!state.isLoading) authenticationBloc.add(AuthenticationSendFormEvent(context));
                 },
                 validator: Validator.validatePassword
               ),
               const SizedBox(height: 55.0,),
               CustomButton(
-                text: 'Log In',
-                onPressed: state.isLoading ? null : () => loginBloc.add(LoginSendFormEvent(context)),
+                text: state.isLogin ? 'Log In' : 'Sign Up',
+                onPressed: state.isLoading ? null : () => authenticationBloc.add(AuthenticationSendFormEvent(context)),
                 isLoading: state.isLoading,
               )
             ],

@@ -1,0 +1,1 @@
+export 'package:minimal_app/global/environment.dart';

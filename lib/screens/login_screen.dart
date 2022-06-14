@@ -26,7 +26,9 @@ class LoginScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 48.0),
                   child: LoginForm(),
                 ),
-                SizedBox(height: 90.0,)
+                SizedBox(height: 20.0,),
+                AuthenticationToggleModeButton(),
+                SizedBox(height: 70.0,),
               ],
             ),
           ),
@@ -36,3 +38,4 @@ class LoginScreen extends StatelessWidget {
   }
 
 }
+

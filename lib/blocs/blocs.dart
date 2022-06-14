@@ -1,1 +1,1 @@
-export 'package:minimal_app/blocs/login/login_bloc.dart';
+export 'package:minimal_app/blocs/authentication/authentication_bloc.dart';

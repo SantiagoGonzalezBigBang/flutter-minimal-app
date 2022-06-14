@@ -1,0 +1,1 @@
+export 'package:minimal_app/models/login_response_model.dart';
