@@ -26,7 +26,8 @@ class AuthenticationScreen extends StatelessWidget {
             initialData: false,
             builder: (context, snapshot) {
               if (snapshot.data ?? false) {
-                return SingleChildScrollView(        
+                return SingleChildScrollView(     
+                  physics: const BouncingScrollPhysics(),   
                   child: Column(
                     children: const [
                       SizedBox(height: 20.0,),

@@ -58,53 +58,53 @@ class DialogChild extends StatelessWidget {
         color: Colors.white, 
         borderRadius: BorderRadius.circular(20.0)       
       ),
-      padding: const EdgeInsets.only(
-        top: 25.0,
-        left: 25.0,
-        right: 25.0,
-        bottom: 15.0
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              DialogTitle(text: clientModel != null ? 'Edit client' : 'Add new client',),
-            ],
-          ),
-          const SizedBox(height: 48.0,),
-          CustomCircleAvatar(
-            size: 119.0,
-            isDialog: true,
-            url: clientModel != null ? clientModel!.photo : '',            
-          ),
-          const SizedBox(height: 30.0,),
-          _CustomClientDialogForm(
-            clientModel: clientModel,
-            clientsBloc: clientsBloc
-          ),
-          const SizedBox(height: 60.0,),
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: CustomButton(
-                  text: 'Cancel',
-                  isOnlyText: true,
-                  onPressed: onCancelTap
+      padding: const EdgeInsets.symmetric(horizontal: 25.0,),
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),   
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 25.0,),
+            Row(
+              children: [
+                DialogTitle(text: clientModel != null ? 'Edit client' : 'Add new client',),
+              ],
+            ),
+            const SizedBox(height: 48.0,),
+            CustomCircleAvatar(
+              size: 119.0,
+              isDialog: true,
+              url: clientModel != null ? clientModel!.photo : '',            
+            ),
+            const SizedBox(height: 30.0,),
+            _CustomClientDialogForm(
+              clientModel: clientModel,
+              clientsBloc: clientsBloc
+            ),
+            const SizedBox(height: 60.0,),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: CustomButton(
+                    text: 'Cancel',
+                    isOnlyText: true,
+                    onPressed: onCancelTap
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10.0,),
-              Expanded(
-                flex: 4,
-                child: CustomButton(
-                  text: clientModel == null ? 'Create' : 'Save',
-                  onPressed: onCreateOrUpdateTap
-                ),
-              )
-            ],
-          ) 
-        ],
+                const SizedBox(width: 10.0,),
+                Expanded(
+                  flex: 4,
+                  child: CustomButton(
+                    text: clientModel == null ? 'Create' : 'Save',
+                    onPressed: onCreateOrUpdateTap
+                  ),
+                )
+              ],
+            ) ,
+            const SizedBox(height: 15.0,)
+          ],
+        ),
       ),
     );
   }
