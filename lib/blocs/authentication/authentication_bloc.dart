@@ -20,6 +20,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
     on<AuthenticationSendFormEvent>(onAuthenticationSendFormEvent);
 
+    on<AuthenticationLogOutEvent>(onAuthenticationLogOutEvent);
   }
 
   final authenticationFormKey = GlobalKey<FormState>();
@@ -87,6 +88,22 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
         
     emit(state.copyWith(isLoading: false));
+  }
+
+  void onAuthenticationLogOutEvent(AuthenticationLogOutEvent event, Emitter<AuthenticationState> emit) async {
+
+    emailTextEditingController.text = '';
+    passwordTextEditingController.text = '';
+
+    Navigator.pushReplacement(event.context, MaterialPageRoute(
+      builder: (context) => const AuthenticationScreen(),
+    ));
+
+    emit(const AuthenticationState());
+
+    await secureStorageHelper.deleteToken();
+    await secureStorageHelper.deleteEmail();
+    await secureStorageHelper.deletePassword();
   }
 
   //* Methods

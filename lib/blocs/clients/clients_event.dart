@@ -12,6 +12,21 @@ class ClientsSetButtonVisibilityEvent extends ClientsEvent {
   final bool isLoadMoreVisibility;
 }
 
+class ClientsSetIsLoadingEvent extends ClientsEvent {
+  const ClientsSetIsLoadingEvent(this.isLoading);
+  final bool isLoading;
+}
+
+class ClientsCreateClientEvent extends ClientsEvent {
+  const ClientsCreateClientEvent(this.context);
+  final BuildContext context;
+}
+
+class ClientsUpdateClientEvent extends ClientsEvent {
+  const ClientsUpdateClientEvent(this.context);
+  final BuildContext context;
+}
+
 class ClientsGetAndSetClientListEvent extends ClientsEvent {}
 
 class ClientsSetNewClientListEvent extends ClientsEvent {
@@ -19,7 +34,14 @@ class ClientsSetNewClientListEvent extends ClientsEvent {
   final List<ClientModel> clients;
 }
 
-class ClientsSetIsLoadingEvent extends ClientsEvent {
-  const ClientsSetIsLoadingEvent(this.isLoading);
-  final bool isLoading;
+
+class ClientsSetSelectedClientEvent extends ClientsEvent {
+  const ClientsSetSelectedClientEvent(this.clientModel);
+  final ClientModel? clientModel;
+}
+
+class ClientsDeleteClientEvent extends ClientsEvent {
+  const ClientsDeleteClientEvent(this.context, this.clientId);
+  final int clientId;
+  final BuildContext context;
 }

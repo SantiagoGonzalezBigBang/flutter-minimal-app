@@ -1,9 +1,9 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:animate_do/animate_do.dart';
 
 import 'package:minimal_app/blocs/blocs.dart';
 import 'package:minimal_app/widgets/widgets.dart';
@@ -115,20 +115,44 @@ class _VisibilityButton extends StatelessWidget {
           );
         }
         
-        return AnimatedOpacity(
-          duration: const Duration(milliseconds: 250),
-          opacity: state.isLoadMoreVisibility ? 1.0 : 0.0,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 30.0, left: 10.0, right: 10.0),
-            child: CustomButton(
-              text: 'Refresh',
-              onPressed: () {
-                FocusScope.of(context).unfocus();
-                clientsBloc.searchTextEditingController.text = '';
-                clientsBloc.add(ClientsGetAndSetClientListEvent());
-              } 
+        return Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 250),
+                opacity: state.isLoadMoreVisibility ? 1.0 : 0.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0, left: 10.0, right: 10.0),
+                  child: CustomButton(
+                    text: 'Log Out',
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLogOutEvent(context));
+                    } 
+                  ),
+                ),
+              ),
             ),
-          ),
+            Expanded(
+              flex: 2,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 250),
+                opacity: state.isLoadMoreVisibility ? 1.0 : 0.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0, left: 10.0, right: 10.0),
+                  child: CustomButton(
+                    text: 'Refresh',
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      clientsBloc.searchTextEditingController.text = '';
+                      clientsBloc.add(ClientsGetAndSetClientListEvent());
+                    } 
+                  ),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
@@ -144,7 +168,7 @@ class _ClientsListView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final clientsBloc = BlocProvider.of<ClientsBloc>(context);
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
 
     return BlocBuilder<ClientsBloc, ClientsState>(
       builder: (context, state) {
@@ -157,7 +181,7 @@ class _ClientsListView extends StatelessWidget {
               final clientModel = state.clients[index];
 
               return Padding(
-                padding: EdgeInsets.only(bottom: index == state.clients.length - 1 ? size.height * 0.13 : 16.0),
+                padding: EdgeInsets.only(bottom: index == state.clients.length - 1 ? 70.0 : 16.0),
                 child: ClientCard(clientModel: clientModel),
               );
             },

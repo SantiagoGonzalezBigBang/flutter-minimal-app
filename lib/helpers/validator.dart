@@ -13,4 +13,16 @@ class Validator {
       : 'The password must be at least 6 characters';
   }
 
+  static String? validateName(String? value) {
+    return (value != null && value.length >= 2) 
+      ? null
+      : 'The name must be at least 2 characters';
+  }
+
+  static String? validateLastName(String? value) {
+    return (value != null && value.length >= 2) 
+      ? null
+      : 'The last name must be at least 2 characters';
+  }
+
 }

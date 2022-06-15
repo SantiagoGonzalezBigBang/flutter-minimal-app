@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:minimal_app/models/models.dart';
 
+import 'package:minimal_app/blocs/blocs.dart';
+import 'package:minimal_app/models/models.dart';
 import 'package:minimal_app/widgets/widgets.dart';
 
 class ClientCard extends StatelessWidget {
@@ -64,7 +66,7 @@ class _NameEmailColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          clientModel.firstname + clientModel.lastname,
+          '${clientModel.firstname} ${clientModel.lastname}',
           style: GoogleFonts.dmSans(
             fontWeight: FontWeight.w500,
             fontSize: 14.0,
@@ -94,27 +96,77 @@ class _EditClientButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
+    return DropdownButtonHideUnderline(      
       child: DropdownButton2<String>(
         customButton: const Icon(
           Icons.more_vert,
           size: 30,
-        ),
+        ),        
         items: [
           DropdownMenuItem(
-            value: 'edit',
+            value: 'edit',            
+            onTap: null,
+            child: GestureDetector(
+              onTap: () {
+                final clientsBloc = BlocProvider.of<ClientsBloc>(context);
+                clientsBloc.add(ClientsSetSelectedClientEvent(clientModel));
+                Navigator.of(context).pop();              
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return CustomClientDialog(
+                      clientModel: clientModel,
+                      clientsBloc: clientsBloc,
+                      onCreateOrUpdateTap: () {   
+                        clientsBloc.searchTextEditingController.text = '';  
+                        FocusScope.of(context).unfocus();               
+                        clientsBloc.add(ClientsUpdateClientEvent(context));
+                      },
+                      onCancelTap: () {
+                        clientsBloc.add(const ClientsSetSelectedClientEvent(null));
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  }
+                ); 
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 10.0,),
+                  Text(
+                    'Edit',
+                    style: GoogleFonts.dmSans(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16.0,
+                      color: Colors.white
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ),
+          DropdownMenuItem(
+            value: 'delete',            
             onTap: () {
-              //TODO Mostrar la pantalla o el popup de edit client
+              final clientsBloc = BlocProvider.of<ClientsBloc>(context);
+              clientsBloc.searchTextEditingController.text = '';
+              FocusScope.of(context).unfocus();
+              clientsBloc.add(ClientsDeleteClientEvent(context, clientModel.id));
             },
             child: Row(
               children: [
                 const Icon(
-                  Icons.edit,
+                  Icons.delete_forever,
                   color: Colors.white,
                 ),
                 const SizedBox(width: 10.0,),
                 Text(
-                  'Edit',
+                  'Delete',
                   style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 16.0,

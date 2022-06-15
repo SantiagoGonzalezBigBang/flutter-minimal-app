@@ -53,4 +53,83 @@ class ClientsService {
     }
   }
 
+  Future<bool> createClient({
+    required String firstName,
+    required String lastName,
+    required String email,
+  }) async {
+
+    final url = Uri.https(
+      Environment.agencyCodaBaseUrl,
+      '/client/save',
+      {
+        'firstname': firstName,
+        'lastname': lastName,    
+        'email': email   
+      }
+    );
+
+    final response = await http.post(
+      url,
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['success'] as bool;      
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> updateClient({
+    required int id,
+    required String firstName,
+    required String lastName,
+    required String email,
+  }) async {
+
+    final url = Uri.https(
+      Environment.agencyCodaBaseUrl,
+      '/client/save',
+      {
+        'id': '$id',
+        'firstname': firstName,
+        'lastname': lastName,    
+        'email': email   
+      }
+    );
+
+    final response = await http.post(
+      url,
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['success'] as bool;      
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> deleteClient({
+    required int id,
+  }) async {
+
+    final url = Uri.https(
+      Environment.agencyCodaBaseUrl,
+      '/client/remove/$id',      
+    );
+
+    final response = await http.delete(
+      url,
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['success'] as bool;      
+    } else {
+      return false;
+    }
+  }
+
 }

@@ -10,7 +10,8 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.isLoading = false,
-    this.isSmall = false
+    this.isSmall = false,
+    this.isOnlyText = false,
   }) : super(key: key);
 
   final String text;
@@ -18,13 +19,14 @@ class CustomButton extends StatelessWidget {
 
   final bool isLoading;
   final bool isSmall;
+  final bool isOnlyText;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: const Color(0xff0D1111),              
+        backgroundColor: isOnlyText ? Colors.transparent : const Color(0xff0D1111),              
         minimumSize: const Size(
           double.infinity, 
           5.0
@@ -35,25 +37,25 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(34.0)
         ),
-        elevation: 10.0
+        elevation: isOnlyText ? 0.0 : 10.0
       ),
       child: !isLoading ? Text(
         text.toUpperCase(),
         textAlign: TextAlign.center,
         style: GoogleFonts.dmSans(
-          color: Colors.white,
+          color: isOnlyText ? const Color(0xff080816).withOpacity(0.38) : Colors.white,
           fontWeight: FontWeight.w500,
           fontSize: 14.0,
           letterSpacing: 0.5
         ),
       ) : FadeIn(
-        child: const SizedBox(
+        child: SizedBox(
           height: 18.5,
           width: 18.5,
           child: LoadingIndicator(
             indicatorType: Indicator.lineScaleParty,
             colors: [
-              Colors.white
+              isOnlyText ? const Color(0xff080816).withOpacity(0.38) : Colors.white
             ],          
           ),
         )
